@@ -3,7 +3,7 @@
     padding: 1rem;
   }
   
-  .form-label, .form-control  {
+  .form-label {
     margin-bottom: 0.5rem;
     font: Lato;
     font-size: 16px;

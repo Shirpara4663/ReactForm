@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import Example from '../example';
 import './Form.css';
-import 'react-datepicker/dist/react-datepicker.css';
+import DateField from './DateField';
+import EmailField from './EmailField';
+import TextField from './TextField';
+import { CancelButton, SubmitButton } from './ButtonField';
+import ContactField from './ContactField';
 
 export default class Form extends Component {
   constructor(props) {
@@ -17,7 +21,11 @@ export default class Form extends Component {
         month: '',
         year: ''
       },
-      error: ''
+      fullnameerror: '',
+      contacterror:'',
+      emailerror:'',
+      passworderror:'',
+      birthdateerror:''
     };
     this.setField = this.setField.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
@@ -32,64 +40,90 @@ export default class Form extends Component {
         }
       }));
     } else {
+      // Reset the error state when correcting the contact info
+      if (field === 'contact' && this.state.contacterror) {
+        this.setState({ contacterror: '' });
+      }
+      // Reset the error state when correcting the email
+      else if (field === 'email' && this.state.emailerror) {
+        this.setState({ emailerror: '' });
+      }
+      // Reset the error state when correcting the password
+      else if ((field === 'password' || field === 'confirmpassword') && (this.state.passworderror || this.state.confirmpassworderror)) {
+        this.setState({ passworderror: '', confirmpassworderror: '' });
+      }
+      // Reset the error state when correcting the full name
+      else if (field === 'fullname' && this.state.fullnameerror) {
+        this.setState({ fullnameerror: '' });
+      }
+      
+      // Update the state
       this.setState({
         [field]: e.target.value
       });
     }
   }
   
-
-//   validate() {
-//     const { email } = this.state;
-//     if (!email || !email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
-//       this.setState({ error: 'Sorry, this email address is not valid, Please try again.' });
-//       return false;
-//     }
-//     return true;
-//   }
+  
   validate() {
     const { fullname, contact, email, password, confirmpassword, birthdate } = this.state;
-
+  
     // Validation for full name
     if (!fullname || fullname.match(/[!@#$%^&*(),.?":{}|<>]/)) {
-      this.setState({ error: 'Full name cannot be empty and should not contain symbols.' });
+      this.setState({ fullnameerror: 'Full name cannot be empty and should not contain symbols.' });
       return false;
+    } else {
+      this.setState({ fullnameerror: '' }); // Clear fullname error if valid
     }
-
+  
     // Validation for contact number (Canadian phone number format)
     if (!contact || !contact.match(/^\d{3}-\d{3}-\d{4}$/)) {
-      this.setState({ error: 'Contact number must be in Canadian phone number format (e.g., XXX-XXX-XXXX).' });
+      this.setState({ contacterror: 'Contact number must be in Canadian phone number format (e.g., XXX-XXX-XXXX).' });
       return false;
-    }
-
-    // Validation for email
-    if (!email || !email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
-      this.setState({ error: 'Email address is not valid. Please enter a valid email address.' });
-      return false;
+    } else {
+      this.setState({ contacterror: '' }); // Clear contact error if valid
     }
 
     // Validation for day, month, and year
     if (!birthdate.day || !birthdate.month || !birthdate.year) {
-      this.setState({ error: 'Please select a valid birthdate.' });
+        this.setState({ birthdateerror: 'Please select a valid birthdate.' });
+        console.log("birtday not set ");
+        return false;
+      } else {
+        console.log("birthday set");
+        this.setState({ birthdateerror: '' }); 
+      }
+  
+    // Validation for email
+    if (!email || !email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+      this.setState({ emailerror: 'Sorry, this email address is not valid, Please try again.' });
       return false;
+    } else {
+      this.setState({ emailerror: '' }); // Clear email error if valid
     }
-
+  
     // Validation for password
     if (!password || !password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)) {
-      this.setState({ error: 'Password must contain at least one lowercase letter, one uppercase letter, one digit, and be at least 8 characters long.' });
+      this.setState({ passworderror: 'Password must contain at least one lowercase letter, one uppercase letter, one digit, and be at least 8 characters long.' });
       return false;
+    } else {
+      this.setState({ passworderror: '' }); // Clear password error if valid
     }
-
+  
     // Validation for confirm password
-    if (password !== confirmpassword) {
-      this.setState({ error: 'Passwords do not match.' });
+    if (!confirmpassword || confirmpassword !== password) {
+      this.setState({ confirmpassworderror: 'Passwords do not match.' });
       return false;
+    } else {
+      this.setState({ confirmpassworderror: '' }); // Clear confirmpassword error if valid
     }
-
+  
     // If all validations pass, return true
+    console.log("all validates");
     return true;
-}
-
+  }
+  
+  
 
   submitHandler(e) {
     e.preventDefault();
@@ -102,117 +136,43 @@ export default class Form extends Component {
   }
 
   render() {
-    // Generate options for days (1 to 31)
-    const days = Array.from({ length: 31 }, (_, index) => index + 1);
-    // Generate options for months (January to December)
-    const months = Array.from({ length: 12 }, (_, index) => {
-      const monthNumber = index + 1;
-      return { value: monthNumber, label: monthNumber };
-    });
-    // Generate options for years (current year - 100 to current year)
-    const currentYear = new Date().getFullYear();
-    const years = Array.from({ length: 100 }, (_, index) => currentYear - index);
-    const { fullname, contact, email, password, confirmpassword, birthdate, error } = this.state;
-    const { day, month, year } = birthdate;
-      
+    const { fullname, contact, email, password, confirmpassword, birthdate, fullnameerror, contacterror, emailerror, passworderror, confirmpassworderror, birthdateerror } = this.state;
+
     return (
-      <div className="container d-flex justify-content-center align-items-center">
-        <div className="row"  style={{ width: '502px', height: '820px', top: '102px', left: '469px', borderRadius: '8px'}}>
-          <Example title='Create User Account'>
-            <div className="card">
-              <form onSubmit={this.submitHandler}>
-                <div className="card-body">
-                <div className="mb-3 position-relative">
-                    <label className="form-label">Full Name</label>
-                    <input
-                        className='form-control asterisk_input'
-                        type='text'
-                        required
-                        placeholder='Full Name' // Add asterisk (*) after the placeholder text
-                        value={fullname}
-                        onChange={this.setField.bind(null, 'fullname')}
+      <div className="container">
+        <div className="row justify-content-center align-items-center" style={{ height: '100vh' }}>
+          <div className="col-md-6">
+            <Example title='Create User Account'>
+              <div className="card">
+                <form onSubmit={this.submitHandler}>
+                  <div className="card-body">
+                    <TextField type="fullname" value={fullname} error={fullnameerror} onChange={this.setField.bind(null, 'fullname')} />
+
+                    <ContactField value={contact} error={contacterror} onChange={this.setField.bind(null, 'contact')} />
+
+                    <DateField
+                        day={birthdate.day}
+                        month={birthdate.month}
+                        year={birthdate.year}
+                        error={birthdateerror}
+                        onChange={(field, e) => this.setField(field, e)}
                     />
-                </div>
 
-                  <div className="mb-3">
-                    <label className="form-label">Contact Number</label>
-                    <input
-                      className='form-control'
-                      type='text'
-                      placeholder='Contact Number'
-                      value={contact}
-                      onChange={this.setField.bind(null, 'contact')} />
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Birthdate</label>
-                    <div className="d-flex">
-                      <select className="form-select me-2" value={day} onChange={(e) => this.setField('day', e)}>
-                        <option value="">Day</option>
-                        {days.map(day => (
-                          <option key={day} value={day}>{day}</option>
-                        ))}
-                      </select>
-                      <select className="form-select me-2" value={month} onChange={(e) => this.setField('month', e)}>
-                        <option value="">Month</option>
-                        {months.map(month => (
-                          <option key={month.value} value={month.value}>{month.label}</option>
-                        ))}
-                      </select>
-                      <select className="form-select" value={year} onChange={(e) => this.setField('year', e)}>
-                        <option value="">Year</option>
-                        {years.map(year => (
-                          <option key={year} value={year}>{year}</option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                    <div className="mb-3" style={{ marginTop: '20px' }}>
-                    <label htmlFor="validationServer03" className="form-label" style={{ marginBottom: '20px' }}>Email Address</label>
-                    <fieldset style={{ border: 'none', position: 'relative', paddingTop: '-5px' }}> 
-                        <legend style={{ display: '', fontSize: '12px', position: 'absolute', top: '-10px', left: '10px', backgroundColor:'white', padding: '0 5px', zIndex: '1' }}>E-mail Address</legend>
-                        <input
-                        className={`form-control ${error !== '' ? 'is-invalid' : ''}`}
-                        type='email'
-                        value={email}
-                        id="validationServer03"
-                        onChange={this.setField.bind(null, 'email')}
-                        required
-                        style={{ padding: '10px', position: 'relative', zIndex: '0' }}
-                        />
-                    </fieldset>
-                    {error && <div className="invalid-feedback mb-3" style={{ display: 'block' }}>{error}</div>}
-                </div>
+                    <EmailField value={email} error={emailerror} onChange={this.setField.bind(null, 'email')} />
 
-                  <div className="mb-3">
-                    <label className="form-label">Password</label>
-                    <div className="input-box">
-                      <input
-                        className='form-control'
-                        type='password'
-                        placeholder='Create Password'
-                        value={password}
-                        onChange={this.setField.bind(null, 'password')} />
-                    </div>
+                    <TextField type="password" value={password} error={passworderror} onChange={this.setField.bind(null, 'password')} />
+
+                    <TextField type="confirmpassword" value={confirmpassword} error={confirmpassworderror} onChange={this.setField.bind(null, 'confirmpassword')} />
                   </div>
-                  <div className="mb-3">
-                    <label className="form-label">Confirm Password</label>
-                    <div className="input-box">
-                      <input
-                        className='form-control'
-                        type='password'
-                        placeholder='Confirm Password'
-                        value={confirmpassword}
-                        onChange={this.setField.bind(null, 'confirmpassword')} />
-                    </div>
+
+                  <div className="card-footer">
+                    <CancelButton />
+                    <SubmitButton />
                   </div>
-                </div>
-                <div className="card-footer">
-                  <button className='btn btn-secondary' type='button'>Cancel</button>
-                  <button className='btn btn-primary' type='submit'>Submit</button>
-                </div>
-              </form>
-            </div>
-          </Example>
+                </form>
+              </div>
+            </Example>
+          </div>
         </div>
       </div>
     );
