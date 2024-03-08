@@ -2,6 +2,10 @@
   .card-body {
     padding: 1rem;
   }
+  .container {
+    justify-content: center;
+    align-items: center;
+  }
   
   .form-label {
     margin-bottom: 0.5rem;
@@ -28,16 +32,125 @@
     justify-content: space-between;
     padding: 0.75rem 1rem;
   }
-
-  .container-custom {
-    width: 502px;
-    height: 820px;
-    top: 102px;
-    left: 469px;
-    border-radius: 8px;
-  }
   
   .input-group-text.text-danger {
     color: red;
-}
+  }
+  .btn-cancel {
+    border: 1px solid  #127C95;
+    width: 145px;
+    height: 46px;
+    padding: 11px 34px;
+    border-radius: 6px;
+    gap: 10px;
+    background: none;
+    color:#127C95;
+  }
+  
+  .btn-submit {
+    background: #127C95;
+    border: none;
+    color: white;
+    width: 145px;
+    height: 46px;
+    padding: 11px 34px;
+    border-radius: 6px;
+    gap: 10px;
+  }
+  
+  .card-container {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border: none;
+  }
+  
+  .button-wrapper {
+    display: flex;
+    justify-content: center; 
+    margin: 20px 0;
+  }
+  
+  .button-wrapper button {
+    font: Lato;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: 0.2px;
+    text-align: center;
+  }
+  
+  .top-0 {
+    position: fixed;
+    width: 100%;
+    height: 100px; /* Adjust as needed */
+    background-image: url("../../public/logo/Group2592.png"); /* Multiple background images */
+    background-size: contain, auto; /* Fit the images inside the header */
+    background-position: left top, center top; /* Position the images */
+    background-repeat: no-repeat, no-repeat; /* Prevent repetition */
+    z-index: 10;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 1200px; /* Adjust max-width as needed */
+  }
+  
+  .logo-container {
+    position: relative;
+    width: 332px; /* Adjust width as needed */
+    height: 100px; /* Adjust height as needed */
+  }
+  
 
+   @media (min-width: 993px) {
+    .container {
+      max-width: 1200px; 
+      margin: 0 auto;
+    }
+  }
+
+  .success-message {
+    border-radius: 4px;
+    background-color: #CDFADC;/* Adjust as needed */
+   /* Adjust as needed */
+    text-align: center;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 10px;
+    position:absolute;
+    margin-left: 480px;
+    margin-Top:0px;
+    width: 400px;
+    height:50px;
+  }
+  .error-message{
+    border-radius: 4px;
+    background-color: #FFC0C0;/* Adjust as needed */
+   /* Adjust as needed */
+    text-align: center;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 10px;
+    position:absolute;
+    margin-left: 480px;
+    margin-Top:0px;
+    width: 400px;
+    height:50px;
+  }
+  
+  @media (max-width: 992px) {
+    .success-message {
+      width: calc(100% - 20px); 
+      margin-left: 0; 
+      margin-top: 20px; 
+    }
+  }
+  
+  .icon {
+    background: black;
+    color:white;
+    border: 1.5px solid black; 
+    border-radius: 50% ;
+    margin-left:7%;
+  }

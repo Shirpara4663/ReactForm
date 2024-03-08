@@ -3,7 +3,7 @@ import React from 'react';
 const TextField = ({ type, value, error, onChange }) => {
   let label;
   switch (type) {
-    case 'fullname':
+    case 'full_name':
       label = 'Full Name';
       break;
     case 'password':
@@ -19,7 +19,7 @@ const TextField = ({ type, value, error, onChange }) => {
   // Define the error message based on the type
   let errorMessage = '';
   switch (type) {
-    case 'fullname':
+    case 'full_name':
       errorMessage = 'Full name cannot be empty and should not contain symbols.';
       break;
     case 'password':
@@ -43,7 +43,7 @@ const TextField = ({ type, value, error, onChange }) => {
         value={value}
         onChange={onChange}
       />
-      {error && <div className="invalid-feedback" style={{ display: 'block' }}>{type === 'fullname' || type === 'password' ? error : errorMessage}</div>}
+      {error && <div className="invalid-feedback" style={{ display: 'block' }}>{type === 'full_name' || type === 'password' ? error : errorMessage}</div>}
     </div>
   );
 };
