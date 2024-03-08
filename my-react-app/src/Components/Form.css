@@ -1,0 +1,43 @@
+
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .form-label, .form-control  {
+    margin-bottom: 0.5rem;
+    font: Lato;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.15000000596046448px;
+    text-align: left;
+  }
+  
+  .form-control{
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    width: 100%;
+  }
+  
+  .form-select {
+    width: calc(33.33% - 8px);
+  }
+  
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+  }
+
+  .container-custom {
+    width: 502px;
+    height: 820px;
+    top: 102px;
+    left: 469px;
+    border-radius: 8px;
+  }
+  
+  .input-group-text.text-danger {
+    color: red;
+}
+

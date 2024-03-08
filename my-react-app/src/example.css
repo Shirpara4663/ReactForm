@@ -1,0 +1,16 @@
+.fontStyles {
+    padding: 100 ;
+    font: 'Lato';
+    font-size: '20px';
+    font-weight: '700';
+    line-height: '30px';
+    letter-spacing:'0.15000000596046448px';
+    text-align: 'left';
+  }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
