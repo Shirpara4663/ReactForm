@@ -179,14 +179,14 @@ export default class Form extends Component {
             <div className="card" style={{ border: 'none', width: '500px', height: '820px', borderRadius: '8px'}}>
                 <form onSubmit={this.submitHandler}>
                     {showSuccessMessage && (
-                        <div className="col-md-6 success-message" style={{ width:'330px'}}>
-                          <FontAwesomeIcon icon={faCheckCircle} className='icon' />
+                        <div className="col-md-6 success-message" style={{ width:'360px'}}>
+                          <FontAwesomeIcon icon={faCheckCircle} className='icon-success' />
                         User account successfully created.
                       </div>
                     )}
                     {showErrorIcon && (
-                        <div className="col-md-6 error-message" style={{ width:'330px'}}>
-                          <FontAwesomeIcon icon={faCircleXmark} className='icon' />
+                        <div className="col-md-6 error-message" style={{ width:'360px'}}>
+                          <FontAwesomeIcon icon={faCircleXmark} className='icon-error' />
                         There was an error creating the account.
                       </div>
                     )}

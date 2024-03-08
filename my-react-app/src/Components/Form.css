@@ -6,6 +6,12 @@
     justify-content: center;
     align-items: center;
   }
+
+  .card-container{
+    padding: 40px;
+    margin-left: 600px;
+    border: none;
+  }
   
   .form-label {
     margin-bottom: 0.5rem;
@@ -120,13 +126,13 @@
     position:absolute;
     margin-left: 480px;
     margin-Top:0px;
-    width: 400px;
+    width: 360px;
     height:50px;
   }
   .error-message{
+    width: 360px;
     border-radius: 4px;
     background-color: #FFC0C0;/* Adjust as needed */
-   /* Adjust as needed */
     text-align: center;
     display: flex;
     justify-content: left;
@@ -134,8 +140,7 @@
     gap: 10px;
     position:absolute;
     margin-left: 480px;
-    margin-Top:0px;
-    width: 400px;
+    margin-Top: 0px;
     height:50px;
   }
   
@@ -147,10 +152,19 @@
     }
   }
   
-  .icon {
+  .icon-success {
     background: black;
     color:white;
     border: 1.5px solid black; 
     border-radius: 50% ;
     margin-left:7%;
+  }
+
+  .icon-error {
+    background: black;
+    color: #FFC0C0;
+    border: 1.5px solid black; 
+    border-radius: 50% ;
+    margin-left:7%;
+    margin-Top: 4px;
   }
