@@ -6,7 +6,7 @@ import EmailField from './EmailField';
 import TextField from './TextField';
 import { CancelButton, SubmitButton } from './ButtonField';
 import ContactField from './ContactField';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ResponseMessage from './ResponseField';
 import { faCheckCircle, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -29,8 +29,8 @@ export default class Form extends Component {
       emailerror:'',
       passworderror:'',
       birthdateerror:'',
-      showSuccessMessage: false,
-      showErrorIcon: true
+      showSuccessMessage: true,
+      showErrorMessage: false
     };
     this.setField = this.setField.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
@@ -78,7 +78,7 @@ export default class Form extends Component {
       this.setState({ fullnameerror: 'Full name cannot be empty and should not contain symbols.' });
       return false;
     } else {
-      this.setState({ fullnameerror: '' }); // Clear fullname error if valid
+      this.setState({ fullnameerror: '' });
     }
   
     // Validation for contact number (Canadian phone number format)
@@ -86,7 +86,7 @@ export default class Form extends Component {
       this.setState({ contacterror: 'Contact number must be in Canadian phone number format (e.g., XXX-XXX-XXXX).' });
       return false;
     } else {
-      this.setState({ contacterror: '' }); // Clear contact error if valid
+      this.setState({ contacterror: '' }); 
     }
 
     // Validation for day, month, and year
@@ -104,7 +104,7 @@ export default class Form extends Component {
       this.setState({ emailerror: 'Sorry, this email address is not valid, Please try again.' });
       return false;
     } else {
-      this.setState({ emailerror: '' }); // Clear email error if valid
+      this.setState({ emailerror: '' });
     }
   
     // Validation for password
@@ -112,7 +112,7 @@ export default class Form extends Component {
       this.setState({ passworderror: 'Password must contain at least one lowercase letter, one uppercase letter, one digit, and be at least 8 characters long.' });
       return false;
     } else {
-      this.setState({ passworderror: '' }); // Clear password error if valid
+      this.setState({ passworderror: '' });
     }
   
     // Validation for confirm password
@@ -120,7 +120,7 @@ export default class Form extends Component {
       this.setState({ confirmpassworderror: 'Passwords do not match.' });
       return false;
     } else {
-      this.setState({ confirmpassworderror: '' }); // Clear confirmpassword error if valid
+      this.setState({ confirmpassworderror: '' });
     }
   
     // If all validations pass, return true
@@ -159,17 +159,16 @@ export default class Form extends Component {
     })
     .then(data => {
       console.log('Success:', data);
-      // Handle success response here
       this.setState({ showSuccessMessage: true });
     })
     .catch(error => {
       console.error('Error:', error);
-      this.setState({ showErrorIcon: true });
+      this.setState({ showErrorMessage: true });
     });
   }
   
   render() {
-    const { full_name, contact, email, password, confirmpassword, birthdate, fullnameerror, contacterror, emailerror, passworderror, confirmpassworderror, birthdateerror, showSuccessMessage, showErrorIcon } = this.state;
+    const { full_name, contact, email, password, confirmpassword, birthdate, fullnameerror, contacterror, emailerror, passworderror, confirmpassworderror, birthdateerror, showSuccessMessage, showErrorMessage } = this.state;
 
     return (
       <div className="container-fluid">
@@ -178,19 +177,10 @@ export default class Form extends Component {
             <Example title='Create User Account'>
             <div className="card" style={{ border: 'none', width: '500px', height: '820px', borderRadius: '8px'}}>
                 <form onSubmit={this.submitHandler}>
-                    {showSuccessMessage && (
-                        <div className="col-md-6 success-message" style={{ width:'360px'}}>
-                          <FontAwesomeIcon icon={faCheckCircle} className='icon-success' />
-                        User account successfully created.
-                      </div>
-                    )}
-                    {showErrorIcon && (
-                        <div className="col-md-6 error-message" style={{ width:'360px'}}>
-                          <FontAwesomeIcon icon={faCircleXmark} className='icon-error' />
-                        There was an error creating the account.
-                      </div>
-                    )}
-                  <div className="card-body" style={{ border: 'none', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)', borderRadius: '8px'}}>
+                  {showSuccessMessage && <ResponseMessage icon={faCheckCircle} className="flex-grow-1 success-message" message="User account successfully created." />}
+                  {showErrorMessage && <ResponseMessage icon={faCircleXmark} className="flex-grow-1 error-message" message="There was an error creating the account." />}
+                  <div className="card-body">
+                    {/* style={{ border: 'none', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)', borderRadius: '8px'}} */}
                     <TextField 
                         type="full_name" 
                         value={full_name} 
@@ -232,7 +222,7 @@ export default class Form extends Component {
                         onChange={this.setField.bind(null, 'confirmpassword')} 
                     />
                   </div>
-                  <div className="button-wrapper" style={{ margin: '40px 0' }}>
+                  <div className="button-wrapper">
                     <CancelButton />
                     <SubmitButton />
                   </div>

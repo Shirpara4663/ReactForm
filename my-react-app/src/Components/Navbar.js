@@ -7,7 +7,6 @@ export default function Navbar() {
     <header className="top-0 z-10">
       <div className="d-flex justify-content-center align-items-center">
         <div className="logo-container img-fluid">
-          {/* No need for img tags here */}
         </div>
       </div>
     </header>

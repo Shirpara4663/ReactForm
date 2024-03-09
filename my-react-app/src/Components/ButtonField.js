@@ -11,7 +11,7 @@ const CancelButton = () => {
 
 const SubmitButton = () => {
   return (
-    <button className='btn-submit' type='submit'>
+    <button className='btn-submit ' type='submit'>
       Submit
     </button>
   );
