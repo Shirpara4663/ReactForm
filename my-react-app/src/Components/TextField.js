@@ -1,6 +1,7 @@
 import React from 'react';
+import '../Styles/Form.css';
 
-const TextField = ({ type, value, error, onChange }) => {
+const TextField = ({ type, value, error, placeholder, onChange }) => {
   let label;
   switch (type) {
     case 'full_name':
@@ -31,19 +32,19 @@ const TextField = ({ type, value, error, onChange }) => {
     default:
       errorMessage = '';
   }
-
+ 
   return (
     <div className="mb-3 position-relative">
       <label className="form-label" htmlFor={`validationServer${type}`}>{label}</label>
       <input
-        className={`form-control ${error ? 'is-invalid' : ''}`}
-        type={type === 'password' || type === 'confirmpassword' ? 'password' : 'text'}
-        id={`validationServer${type}`}
-        placeholder={label}
-        value={value}
-        onChange={onChange}
-      />
-      {error && <div className="invalid-feedback" style={{ display: 'block' }}>{type === 'full_name' || type === 'password' ? error : errorMessage}</div>}
+          className={`form-control ${error ? 'is-invalid' : ''}`}
+          type={type === 'password' || type === 'confirmpassword' ? 'password' : 'text'}
+          id={`validationServer${type}`}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          />
+      {error && <div className="error-block">{type === 'full_name' || type === 'password' ? error : errorMessage}</div>}
     </div>
   );
 };

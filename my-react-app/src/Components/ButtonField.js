@@ -1,9 +1,9 @@
 import React from 'react';
-import './Form.css';
+import '../Styles/Form.css';
 
-const CancelButton = () => {
+const CancelButton = ({ onClick }) => {
   return (
-    <button className='btn-cancel me-3' type='button'>
+    <button className='btn-cancel me-3' type='button' onClick={onClick}>
       Cancel
     </button>
   );

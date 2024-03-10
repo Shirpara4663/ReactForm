@@ -1,6 +1,6 @@
 
 import React from "react";
-import "./Form.css"; 
+import '../Styles/Form.css';
 
 export default function Navbar() {
   return (

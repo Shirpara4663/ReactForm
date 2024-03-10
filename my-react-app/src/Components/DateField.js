@@ -26,25 +26,25 @@ const DateField = ({ day, month, year, error, onChange }) => {
       <label className="form-label">Birthdate</label>
       <div className="d-flex">
         <select className={`form-select me-2 ${error ? 'is-invalid' : ''}`} value={day} onChange={handleDayChange}>
-          <option value="">Day</option>
+          <option value="">Day *</option>
           {days.map(day => (
             <option key={day} value={day}>{day}</option>
           ))}
         </select>
         <select className={`form-select me-2 ${error ? 'is-invalid' : ''}`} value={month} onChange={handleMonthChange}>
-          <option value="">Month</option>
+          <option value="">Month *</option>
           {months.map(month => (
             <option key={month.value} value={month.value}>{month.label}</option>
           ))}
         </select>
         <select className={`form-select ${error ? 'is-invalid' : ''}`} value={year} onChange={handleYearChange}>
-          <option value="">Year</option>
+          <option value="">Year *</option>
           {years.map(year => (
             <option key={year} value={year}>{year}</option>
           ))}
         </select>
       </div>
-      {error && <div className="invalid-feedback">{error}</div>}
+      {error && <div className="error-block">{error}</div>}
     </div>
   );
 };
