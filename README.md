@@ -1,16 +1,16 @@
-# Install Node.js:
+### Install Node.js
 
 Visit the Node.js website: Node.js Downloads.
 
-# Clone the GitHub Repository:
+### Clone the GitHub Repository
 
 git clone https://github.com/Shirpara4663/ReactForm.git 
 
-# Navigate to the Project Directory:
+### Navigate to the Project Directory
 
 cd my-react-app
 
-# Install Project Dependencies:
+### Install Project Dependencies
 
 npm install
 
